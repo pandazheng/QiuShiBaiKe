@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) QiuShiBaiKeViewController *viewController;
+@property (strong, nonatomic) UITabBarController *tabBarController;
 
 @end

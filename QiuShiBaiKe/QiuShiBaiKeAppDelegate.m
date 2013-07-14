@@ -11,11 +11,13 @@
 #import "QiuShiBaiKeViewController.h"
 
 @implementation QiuShiBaiKeAppDelegate
+@synthesize tabBarController = _tabBarController;
 
 - (void)dealloc
 {
     [_window release];
     [_viewController release];
+    [_tabBarController release];
     [super dealloc];
 }
 
@@ -23,8 +25,42 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[QiuShiBaiKeViewController alloc] initWithNibName:@"QiuShiBaiKeViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
+//    self.viewController = [[[QiuShiBaiKeViewController alloc] initWithNibName:@"QiuShiBaiKeViewController" bundle:nil] autorelease];
+//    self.window.rootViewController = self.viewController;
+    QiuShiBaiKeViewController *viewController1,*viewController2,*viewController3;
+    QiuShiBaiKeViewController *viewController4,*viewController5;
+    
+    viewController1 = [[QiuShiBaiKeViewController alloc] initWithNibName:nil bundle:nil];
+    viewController1.title = @"随便逛逛";
+    viewController1.MainQiuTime=QiuShiTimeRandom;
+    viewController2 = [[QiuShiBaiKeViewController alloc] initWithNibName:nil bundle:nil];
+    viewController2.title = @"8小时最糗";
+    viewController2.MainQiuTime=QiuShiTimeDay;
+    viewController3 = [[[QiuShiBaiKeViewController alloc] initWithNibName:nil bundle:nil]autorelease];
+    viewController3.title = @"7天内最糗";
+    viewController3.MainQiuTime=QiuShiTimeWeek;
+    viewController4 = [[[QiuShiBaiKeViewController alloc] initWithNibName:nil bundle:nil]autorelease];
+    viewController4.title = @"30天内最糗";
+    viewController4.MainQiuTime=QiuShiTimeMonth;
+    viewController5 = [[[QiuShiBaiKeViewController alloc] initWithNibName:nil bundle:nil]autorelease];
+    viewController5.title = @"真相";
+    viewController5.MainQiuTime=QiuShiTimePhoto;
+    
+    
+    UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:viewController1] ;
+    nav1.navigationBarHidden=YES;
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:viewController2] ;
+    nav2.navigationBarHidden=YES;
+    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:viewController3];
+    nav3.navigationBarHidden=YES;
+    UINavigationController *nav4 = [[UINavigationController alloc] initWithRootViewController:viewController4];
+    nav4.navigationBarHidden=YES;
+    UINavigationController *nav5 = [[UINavigationController alloc] initWithRootViewController:viewController5] ;
+    nav5.navigationBarHidden=YES;
+    
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1,nav2,nav3,nav4,nav5, nil];
+    self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }
